@@ -2,11 +2,11 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 public class ChatServer extends linkedlist {
+	//inheritance
     private int port = 8989;
-    private linkedlist userNames = new linkedlist();
     private Set<UserThread> userThreads = new HashSet<>();
  
-    public void execute() {
+    public void exec() {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
  
             System.out.println("Chat Server is listening on port " + port);
@@ -28,18 +28,13 @@ public class ChatServer extends linkedlist {
     }
  
     public static void main(String[] args) {
-//        if (args.length < 1) {
-//            System.out.println("Syntax: java ChatServer <port-number>");
-//            System.exit(0);
-//        }
-
  
         ChatServer server = new ChatServer();
-        server.execute();
+        server.exec();
     }
  
  
-    void broadcast(String message, UserThread excludeUser) {
+    void sendToAll(String message, UserThread excludeUser) {
         for (UserThread aUser : userThreads) {
             if (aUser != excludeUser) {
                 aUser.sendMessage(message);
@@ -47,12 +42,12 @@ public class ChatServer extends linkedlist {
         }
     }
 
-    void addUserName(String userName) {
-        userNames.add(userName);
+    void addUser(String userName) {
+        super.add(userName);
     }
 
     void removeUser(String userName, UserThread aUser) {
-        boolean removed = userNames.remove(userName);
+        boolean removed = super.remove(userName);
         if (removed) {
             userThreads.remove(aUser);
             System.out.println("The user " + userName + " quitted");
@@ -60,10 +55,10 @@ public class ChatServer extends linkedlist {
     }
  
     String getUserNames() {
-        return this.userNames.toString();
+        return super.toString();
     }
 
     boolean hasUsers() {
-        return !this.userNames.isEmpty();
+        return !super.isEmpty();
     }
 }

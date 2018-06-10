@@ -1,11 +1,12 @@
 import java.io.*;
 import java.net.*;
-public class ReadThread extends Thread {
+public class Reading extends Thread {
+	//inheritance
 	 private BufferedReader reader;
 	    private Socket socket;
 	    private ChatClient client;
 	 
-	    public ReadThread(Socket socket, ChatClient client) {
+	    public Reading(Socket socket, ChatClient client) {
 	        this.socket = socket;
 	        this.client = client;
 	 
@@ -17,13 +18,12 @@ public class ReadThread extends Thread {
 	            ex.printStackTrace();
 	        }
 	    }
-	 
+	 //overriding
 	    public void run() {
 	        while (true) {
 	            try {
 	                String response = reader.readLine();
 	                System.out.println("\n" + response);
-	 
 	                // prints the username after displaying the server's message
 	                if (client.getUserName() != null) {
 	                    System.out.print("[" + client.getUserName() + "]: ");

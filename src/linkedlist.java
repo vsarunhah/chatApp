@@ -1,3 +1,4 @@
+//subclass
 class Node{
 	public String data;
 	public Node next;
@@ -27,6 +28,7 @@ class Node{
 	        return data;
 	    }
 }
+//class
 public class linkedlist{
 	private Node head;
 	private Node end;

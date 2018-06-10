@@ -23,25 +23,25 @@ public class UserThread extends Thread {
             printUsers();
  
             String userName = reader.readLine();
-            server.addUserName(userName);
+            server.addUser(userName);
  
             String serverMessage = "New user connected: " + userName;
-            server.broadcast(serverMessage, this);
+            server.sendToAll(serverMessage, this);
  
             String clientMessage;
  
             do {
                 clientMessage = reader.readLine();
                 serverMessage = "[" + userName + "]: " + clientMessage;
-                server.broadcast(serverMessage, this);
+                server.sendToAll(serverMessage, this);
  
             } while (!clientMessage.equals("bye"));
  
             server.removeUser(userName, this);
             socket.close();
  
-            serverMessage = userName + " has quitted.";
-            server.broadcast(serverMessage, this);
+            serverMessage = userName + " has quit.";
+            server.sendToAll(serverMessage, this);
  
         } catch (IOException ex) {
             System.out.println("Error in UserThread: " + ex.getMessage());
